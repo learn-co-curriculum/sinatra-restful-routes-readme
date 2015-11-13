@@ -2,6 +2,7 @@
 
 ## Objectives
 + Explain the concept of RESTful routes
++ Implement RESTful routes in a Sinatra application
 
 ## What Is A RESTful Route?
 
@@ -104,5 +105,5 @@ end
 
 On the blog post show page, we have a form to delete it. The form is submitted via a `POST` request (again, because Sinatra can't handle `DELETE` requests) to the route `/posts/:id/delete`. This action finds the blog post in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/posts`.
 
- 
+
 
