@@ -16,11 +16,13 @@ What this means is that when your application receives an HTTP request, it intro
 
 Let's take a blog website as an example. You'd want to have a controller action to create a new post (new route), to display one post (show route), to display all posts (index route), to delete a post (delete route), and a page to edit a post (edit route).
 
-| HTTP VERB | ROUTE  |  Action |   Used For|  # |
-|---|---|---|---|---|
-|  GET |  '/posts' | index action   | index page to display all posts   |   |
-|   |   |   |   |   |
-|   |   |   |   |   |
+| HTTP VERB | ROUTE | Action | Used For |
+|---        |---    |---      |---      |
+|  GET |  '/posts' | index action   | index page to display all posts   |
+|   GET |   '/posts/:id| show action   |displays one blog post based on ID in the url|
+|   PATCH| '/posts/:id'   | edit action   | edits one blog post based on ID in the url  |
+|   DELETE| '/posts/:id'   | delete action   |deletes one blog post based on ID in the url  |
+|   POST| '/posts/new'   | create action   |creates one blog post |
 
 ## chart like rails
 
