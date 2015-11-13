@@ -11,28 +11,98 @@ A RESTful route is a route that provides mapping between HTTP verbs (get post, p
 
 What this means is that when your application receives an HTTP request, it introspects on that request and identifies the HTTP method and URL,connects that with a corresponding controller action that has that method and URL, executes the code in that action, and determines which response gets sent back to the client. We don't need to worry about how the mechanics of the pattern matching occurs, just that it does happen.
 
+## Sinatra Caveat
 
-## The Routes
+Sinatra behaves a little strange as it relates to `PATCH` and `DELETE` requests, in that Sinatra doesn't know how to respond to those requests. Forms to delete and edit need to be submitted via `POST` requests.
+
+
+## Routes Overview
 
 Let's take a blog website as an example. You'd want to have a controller action to create a new post (new route), to display one post (show route), to display all posts (index route), to delete a post (delete route), and a page to edit a post (edit route).
 
 | HTTP VERB | ROUTE | Action | Used For |
 |---        |---    |---      |---      |
 |  GET |  '/posts' | index action   | index page to display all posts   |
-|   GET |   '/posts/:id| show action   |displays one blog post based on ID in the url|
-|   PATCH| '/posts/:id'   | edit action   | edits one blog post based on ID in the url  |
-|   DELETE| '/posts/:id'   | delete action   |deletes one blog post based on ID in the url  |
-|   POST| '/posts/new'   | create action   |creates one blog post |
+|   GET |   '/posts/:id'| show action   |displays one blog post based on ID in the url|
+|   PATCH/POST| '/posts/:id/edit'   | edit action   | edits one blog post based on ID in the url  |
+|   DELETE/POST| '/posts/:id/dlete'   | delete action   |deletes one blog post based on ID in the url  |
+|   POST| '/posts'   | create action   |creates one blog post |
 
-## chart like rails
 
-## explanation of each
+## The Routes
 
-they are stateless - meaning each transaction is unique and unrelated to previous requests
-GET requests to load forms ('/posts/:id/edit' to load edit form, '/posts/new' to load new form)
-get '/posts' do # (index action, displays all posts)
-get '/posts/:id' (show action, displays one post based on ID in URL)
-patch '/posts/:id' (edit acton, edits one post based on ID in URL)
-delete 'posts/:id' (delete action, deletes one post paste on ID in URL)
-post 'post/new' (new/create action, creates one post and saves to DB)
- THIS IS BASED OFF ONE APPLICATION CONTROLLER
+###  Index Action
+
+```ruby
+get '/posts' do
+  @posts = Post.all
+  erb :index
+end
+```
+
+The controller action above responds to a `GET` request to the route `'/posts'`. This action is the `index action` and allows the view to access all the posts in the database through the instance variable `@posts`.
+
+
+### New Action
+
+```ruby
+get '/posts/new' do
+  erb :new
+end
+
+post '/posts' do
+  @post = Post.create(:title => params[:title], :content => params[:content])
+  redirect to '/posts/#{@post.id}'
+end
+```
+
+Above, we have two controller actions. The first one is a `GET` request to load the form to create a new blog post. The second action is the `create action`. This action responds to a `POST` request and creates a new post based on the params from the form and saves it to the database. Once the item is created, this action redirects to the `show` page. 
+
+
+### Show Action
+
+```ruby
+get '/posts/:id'
+  @post = Post.find_by_id(params[:id])
+  erb :show
+end
+```
+
+In order to display a single post, we need a `show action`. This controller action responds to a `GET` request to the route `'/posts:/id'`. Because route uses a dynamic URL, we can access the ID of the post in the view through the `params` hash.
+
+### Edit Action
+
+```ruby
+get '/posts/:id/edit' do  #load edit form
+    @post = Post.find_by_id(params[:id])
+    erb :edit
+  end
+
+post '/posts/:id' do #edit action
+  @post = Post.find_by_id(params[:id])
+  @post.title = params[:title]
+  @post.content = params[:content]
+  @post.save
+  redirect to "/posts/#{@post.id}"
+end
+```
+
+The first controller action above is loads the edit form in the browser by making a `GET` request to `posts/:id/edit`.
+
+The second controller action handles the edit form submission. This action responds to a `POST` request (because Sinatra can't handle `PATCH`) to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
+
+
+### Delete Action
+
+```ruby
+post '/posts/:id/delete' do #delete action
+  @post = Post.find_by_id(params[:id])
+  @post.delete
+  redirect to '/posts'
+end
+```
+
+On the blog post show page, we have a form to delete it. The form is submitted via a `POST` request (again, because Sinatra can't handle `DELETE` requests) to the route `/posts/:id/delete`. This action finds the blog post in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/posts`.
+
+ 
+
