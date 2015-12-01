@@ -6,16 +6,17 @@
 
 ## What Is A RESTful Route?
 
-What is the internet without a convention for how to handle URLS - to delete a Facebook post might be www.facebook.com/delete-this-wallpost, but Twitter might be www.twitter.com/remove-this-tweet. Without a specific convention to follow, it would be hard to create new content, edit content, and delete it. RESTful routes provides a design pattern that allows for easy data manipulation. It's nicer for users and nicer for developers to have everything consistent.
+The internet would be a really confusing place without a convention for how to handle URLS - to delete a Facebook post might be www.facebook.com/delete-this-wallpost, but Twitter might be www.twitter.com/remove-this-tweet. Without a specific convention to follow, it would be hard to create new content, edit content, and delete it. RESTful routes provides a design pattern that allows for easy data manipulation. It's nicer for users and nicer for developers to have everything consistent.
 
-A RESTful route is a route that provides mapping between HTTP verbs (get post, put, delete, patch) to controller CRUD actions (create, read, update, delete). Instead of relying solely on the URL to indicate what site to visit, a RESTful route also depends on the HTTP verb __and__ the URL. 
+A RESTful route is a route that provides mapping between HTTP verbs (get post, put, delete, patch) to controller CRUD actions (create, read, update, delete). Instead of relying solely on the URL to indicate what site to visit, a RESTful route also depends on the HTTP verb __and__ the URL.
 
 What this means is that when your application receives an HTTP request, it introspects on that request and identifies the HTTP method and URL,connects that with a corresponding controller action that has that method and URL, executes the code in that action, and determines which response gets sent back to the client. We don't need to worry about how the mechanics of the pattern matching occurs, just that it does happen.
 
-## Sinatra Caveat
+It's important to note that much of the CRUD actions are different actions that occur on the same resource. Let's take the example of a blog post with the ID 4. If we wanted to view the post, we would make a `GET` request to `/posts/4`. But what about when I want to update that post? Am I hitting a different resource? Nope! just doing a different action to that same resource. So instead of a `GET` against `post/4` we do a `PUT`. That's what separating what you're talking to (the resource/noun) from the action you're doing (the HTTP verb) is important! That's key to REST.
 
-Sinatra behaves a little strange as it relates to `PATCH` and `DELETE` requests, in that Sinatra doesn't know how to respond to those requests. Forms to delete and edit need to be submitted via `POST` requests.
+## Browser Caveat
 
+Browers behaves a little strange as it relates to `PUT`, `PATCH` and `DELETE` requests, in that they doesn't know how to send to those requests. Forms to delete and edit need to be submitted via `POST` requests.
 
 ## Routes Overview
 
@@ -25,7 +26,7 @@ Let's take a blog website as an example. You'd want to have a controller action 
 |---        |---    |---      |---      |
 |  GET |  '/posts' | index action   | index page to display all posts   |
 |   GET |   '/posts/:id'| show action   |displays one blog post based on ID in the url|
-|   PATCH (Sinatra POST)| '/posts/:id/edit'   | edit action   | edits one blog post based on ID in the url  |
+|   PUT (Sinatra POST)| '/posts/:id/edit'   | edit action   | edits one blog post based on ID in the url  |
 |   DELETE (Sinatra POST)| '/posts/:id/dlete'   | delete action   |deletes one blog post based on ID in the url  |
 |   POST| '/posts'   | create action   |creates one blog post |
 
@@ -90,7 +91,7 @@ end
 
 The first controller action above is loads the edit form in the browser by making a `GET` request to `posts/:id/edit`.
 
-The second controller action handles the edit form submission. This action responds to a `POST` request (because Sinatra can't handle `PATCH`) to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
+The second controller action handles the edit form submission. This action responds to a `POST` request (because Sinatra can't handle `PUT`) to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
 
 
 ### Delete Action
@@ -104,6 +105,7 @@ end
 ```
 
 On the blog post show page, we have a form to delete it. The form is submitted via a `POST` request (again, because Sinatra can't handle `DELETE` requests) to the route `/posts/:id/delete`. This action finds the blog post in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/posts`.
+
 
 
 
