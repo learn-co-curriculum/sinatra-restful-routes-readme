@@ -107,3 +107,5 @@ On the blog post show page, we have a form to delete it. The form is submitted v
 
 
 
+
+<a href='https://learn.co/lessons/sinatra-restful-routes-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
