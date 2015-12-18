@@ -89,7 +89,7 @@ post '/posts/:id' do #edit action
 end
 ```
 
-The first controller action above is loads the edit form in the browser by making a `GET` request to `posts/:id/edit`.
+The first controller action above loads the edit form in the browser by making a `GET` request to `posts/:id/edit`.
 
 The second controller action handles the edit form submission. This action responds to a `POST` request (because Sinatra can't handle `PUT`) to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
 
