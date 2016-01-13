@@ -99,7 +99,7 @@ Your form must include a hidden input field that will submit our form via `patch
 
 ```html
 <form action="/posts/:id" method="post">
-  <input type="hidden" name="_method" value="patch">
+  <input id="hidden" type="hidden" name="_method" value="patch">
   <input type="text" name="title">
   <input type="text" name="content">
   <input type="submit" value="submit">
@@ -127,7 +127,7 @@ Again, this delete form needs the hidden input field:
 
 ```html
 <form action="/posts/:id/delete" method="post">
-  <input type="hidden" name="_method" value="patch">
+  <input id="hidden" type="hidden" name="_method" value="patch">
   <input type="text" name="title">
   <input type="text" name="content">
   <input type="submit" value="submit">
