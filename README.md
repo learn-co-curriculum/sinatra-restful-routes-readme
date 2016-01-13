@@ -80,7 +80,7 @@ get '/posts/:id/edit' do  #load edit form
     erb :edit
   end
 
-post '/posts/:id' do #edit action
+patch '/posts/:id' do #edit action
   @post = Post.find_by_id(params[:id])
   @post.title = params[:title]
   @post.content = params[:content]
@@ -91,21 +91,48 @@ end
 
 The first controller action above loads the edit form in the browser by making a `GET` request to `posts/:id/edit`.
 
-The second controller action handles the edit form submission. This action responds to a `POST` request (because Sinatra can't handle `PUT`) to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
+The second controller action handles the edit form submission. This action responds to a `PATCH` request to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
+
+We do have to do a little extra work to get the edit form to submit via a `PATCH` request.
+
+Your form must include a hidden input field that will submit our form via `patch`.
+
+```html
+<form action="/posts/:id" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="title">
+  <input type="text" name="content">
+  <input type="submit" value="submit">
+</form>
+```
+
+The second line above `<input type="hidden" name="_method" value="patch">` is what does this for us.
+
+This hidden input field uses `Rack:MethodOverride` which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb). This middleware runs for every request sent by our application. It will interpret any requests with `name="_method"` by translating  the request to whatever is set by the `value` attribute. In this example, the `post` gets translated to a `patch` request. Middleware handles `patch` and `delete` in the same way.
 
 
 ### Delete Action
 
 ```ruby
-post '/posts/:id/delete' do #delete action
+delete '/posts/:id/delete' do #delete action
   @post = Post.find_by_id(params[:id])
   @post.delete
   redirect to '/posts'
 end
 ```
 
-On the blog post show page, we have a form to delete it. The form is submitted via a `POST` request (again, because Sinatra can't handle `DELETE` requests) to the route `/posts/:id/delete`. This action finds the blog post in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/posts`.
+On the blog post show page, we have a form to delete it. The form is submitted via a `DELETE` request to the route `/posts/:id/delete`. This action finds the blog post in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/posts`.
 
+Again, this delete form needs the hidden input field:
+
+```html
+<form action="/posts/:id/delete" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="text" name="title">
+  <input type="text" name="content">
+  <input type="submit" value="submit">
+</form>
+```
 
 
 <a href='https://learn.co/lessons/sinatra-restful-routes-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
