@@ -108,7 +108,19 @@ Your form must include a hidden input field that will submit our form via `patch
 
 The second line above `<input type="hidden" name="_method" value="patch">` is what does this for us.
 
-This hidden input field uses `Rack:MethodOverride` which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb). This middleware runs for every request sent by our application. It will interpret any requests with `name="_method"` by translating  the request to whatever is set by the `value` attribute. In this example, the `post` gets translated to a `patch` request. Middleware handles `patch` and `delete` in the same way.
+#### Using `PATCH`, `PUT` and `DELETE` requests with `Rack::MethodOverride` Middleware
+
+The hidden input field shown above uses `Rack:MethodOverride` which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb). 
+
+In order to use this middleware, and therefore use `PATCH` and `DELETE` requests, you *must* tell your app to use the middeleware. 
+
+In the `config.ru` file, you'll need the following line to be placed *above* the `run ApplicationController` line:
+
+```ruby
+use Rack::MethodOverride
+```
+
+This middleware will then run for every request sent by our application. It will interpret any requests with `name="_method"` by translating  the request to whatever is set by the `value` attribute. In this example, the `post` gets translated to a `patch` request. The middleware handles `patch` and `delete` in the same way.
 
 
 ### Delete Action
