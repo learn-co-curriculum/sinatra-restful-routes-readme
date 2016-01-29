@@ -147,5 +147,5 @@ Again, this delete form needs the hidden input field:
 ```
 
 
-<a href='https://learn.co/lessons/sinatra-restful-routes-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme' title='RESTful Routes'>RESTful Routes</a> on Learn.co and start learning to code for free.</p>
 
