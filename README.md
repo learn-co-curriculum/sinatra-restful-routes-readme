@@ -70,7 +70,7 @@ get '/posts/:id'
 end
 ```
 
-In order to display a single post, we need a `show action`. This controller action responds to a `GET` request to the route `'/posts/:id'`. Because route uses a dynamic URL, we can access the ID of the post in the view through the `params` hash.
+In order to display a single post, we need a `show action`. This controller action responds to a `GET` request to the route `'/posts/:id'`. Because this route uses a dynamic URL, we can access the ID of the post in the view through the `params` hash.
 
 ### Edit Action
 
