@@ -139,7 +139,7 @@ Again, this delete form needs the hidden input field:
 
 ```html
 <form action="/posts/:id/delete" method="post">
-  <input id="hidden" type="hidden" name="_method" value="patch">
+  <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="text" name="title">
   <input type="text" name="content">
   <input type="submit" value="submit">
@@ -149,3 +149,5 @@ Again, this delete form needs the hidden input field:
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme' title='RESTful Routes'>RESTful Routes</a> on Learn.co and start learning to code for free.</p>
 
+
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme'>Sinatra RESTful Routes</a> on Learn.co and start learning to code for free.</p>
