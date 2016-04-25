@@ -64,7 +64,7 @@ Above, we have two controller actions. The first one is a `GET` request to load 
 ### Show Action
 
 ```ruby
-get '/posts/:id'
+get '/posts/:id' do
   @post = Post.find_by_id(params[:id])
   erb :show
 end
@@ -151,3 +151,5 @@ Again, this delete form needs the hidden input field:
 
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme'>Sinatra RESTful Routes</a> on Learn.co and start learning to code for free.</p>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme'>Sinatra RESTful Routes</a> on Learn.co and start learning to code for free.</p>
