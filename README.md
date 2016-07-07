@@ -112,7 +112,7 @@ The second line above `<input type="hidden" name="_method" value="patch">` is wh
 
 The hidden input field shown above uses `Rack:MethodOverride` which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb). 
 
-In order to use this middleware, and therefore use `PATCH` and `DELETE` requests, you *must* tell your app to use the middeleware. 
+In order to use this middleware, and therefore use `PATCH` and `DELETE` requests, you *must* tell your app to use the middleware. 
 
 In the `config.ru` file, you'll need the following line to be placed *above* the `run ApplicationController` line:
 
