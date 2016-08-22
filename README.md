@@ -1,5 +1,9 @@
 # RESTful Routes 
 
+## Overview
+
+In this lesson we'll explain the benefits of RESTfil routes and how they provide a design pattern that allows for easy data manipulation. 
+
 ## Objectives
 + Explain the concept of RESTful routes
 + Implement RESTful routes in a Sinatra application
