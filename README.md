@@ -145,7 +145,7 @@ Again, this delete form needs the hidden input field:
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="text" name="title">
   <input type="text" name="content">
-  <input type="submit" value="submit">
+  <input type="submit" value="delete">
 </form>
 ```
 
