@@ -95,7 +95,7 @@ end
 
 The first controller action above loads the edit form in the browser by making a `GET` request to `posts/:id/edit`.
 
-The second controller action handles the edit form submission. This action responds to a `PATCH` request to the route `/posts/:id`. First, we pull the blog post by the ID from the URl, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
+The second controller action handles the edit form submission. This action responds to a `PATCH` request to the route `/posts/:id`. First, we pull the blog post by the ID from the URL, then we update the title and content attributes and save. The action ends with a redirect to the blog post show page.
 
 We do have to do a little extra work to get the edit form to submit via a `PATCH` request.
 
