@@ -58,7 +58,7 @@ end
 
 post '/posts' do
   @post = Post.create(:title => params[:title], :content => params[:content])
-  redirect to '/posts/#{@post.id}'
+  redirect to "/posts/#{@post.id}"
 end
 ```
 
