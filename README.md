@@ -58,7 +58,7 @@ end
 
 post '/posts' do
   @post = Post.create(:title => params[:title], :content => params[:content])
-  redirect to '/posts/#{@post.id}'
+  redirect to "/posts/#{@post.id}"
 end
 ```
 
@@ -149,6 +149,6 @@ Again, this delete form needs the hidden input field:
 </form>
 ```
 
-<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme' title='RESTful Routes'>RESTful Routes</a> on Learn.co and start learning to code for free.</p>
+<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme'>Sinatra RESTful Routes</a> on Learn.co and start learning to code for free.</p>
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme'>Sinatra RESTful Routes</a> on Learn.co and start learning to code for free.</p>
