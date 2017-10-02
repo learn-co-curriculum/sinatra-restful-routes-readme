@@ -1,8 +1,8 @@
-# RESTful Routes 
+# RESTful Routes
 
 ## Overview
 
-In this lesson we'll explain the benefits of RESTful routes and how they provide a design pattern that allows for easy data manipulation. 
+In this lesson we'll explain the benefits of RESTful routes and how they provide a design pattern that allows for easy data manipulation.
 
 ## Objectives
 + Explain the concept of RESTful routes
@@ -62,7 +62,7 @@ post '/posts' do
 end
 ```
 
-Above, we have two controller actions. The first one is a `GET` request to load the form to create a new blog post. The second action is the `create action`. This action responds to a `POST` request and creates a new post based on the params from the form and saves it to the database. Once the item is created, this action redirects to the `show` page. 
+Above, we have two controller actions. The first one is a `GET` request to load the form to create a new blog post. The second action is the `create action`. This action responds to a `POST` request and creates a new post based on the params from the form and saves it to the database. Once the item is created, this action redirects to the `show` page.
 
 
 ### Show Action
@@ -102,7 +102,7 @@ We do have to do a little extra work to get the edit form to submit via a `PATCH
 Your form must include a hidden input field that will submit our form via `patch`.
 
 ```html
-<form action="/posts/:id" method="post">
+<form action="/posts/<%= @post.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <input type="text" name="title">
   <input type="text" name="content">
@@ -114,9 +114,9 @@ The second line above `<input type="hidden" name="_method" value="patch">` is wh
 
 #### Using `PATCH`, `PUT` and `DELETE` requests with `Rack::MethodOverride` Middleware
 
-The hidden input field shown above uses `Rack:MethodOverride` which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb). 
+The hidden input field shown above uses `Rack:MethodOverride` which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb).
 
-In order to use this middleware, and therefore use `PATCH`, `PUT`, and `DELETE` requests, you *must* tell your app to use the middleware. 
+In order to use this middleware, and therefore use `PATCH`, `PUT`, and `DELETE` requests, you *must* tell your app to use the middleware.
 
 In the `config.ru` file, you'll need the following line to be placed *above* the `run ApplicationController` line:
 
@@ -141,7 +141,7 @@ On the blog post show page, we have a form to delete it. The form is submitted v
 Again, this delete form needs the hidden input field:
 
 ```html
-<form action="/posts/:id/delete" method="post">
+<form action="/posts/<%= @post.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="text" name="title">
   <input type="text" name="content">
