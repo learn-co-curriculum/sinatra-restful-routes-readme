@@ -143,7 +143,7 @@ Again, this delete form needs the hidden input field:
 ```html
 <form action="/posts/<%= @post.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="submit">
+  <input type="submit" value="delete">
 </form>
 ```
 
