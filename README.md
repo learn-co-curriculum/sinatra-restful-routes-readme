@@ -1,8 +1,8 @@
-# RESTful Routes 
+# RESTful Routes
 
 ## Overview
 
-In this lesson we'll explain the benefits of RESTful routes and how they provide a design pattern that allows for easy data manipulation. 
+In this lesson we'll explain the benefits of RESTful routes and how they provide a design pattern that allows for easy data manipulation.
 
 ## Objectives
 + Explain the concept of RESTful routes
@@ -16,7 +16,7 @@ A RESTful route is a route that provides mapping between HTTP verbs (get, post, 
 
 What this means is that when your application receives an HTTP request, it introspects on that request and identifies the HTTP method and URL, connects that with a corresponding controller action that has that method and URL, executes the code in that action, and determines which response gets sent back to the client. We don't need to worry about how the mechanics of the pattern matching occurs, just that it does happen.
 
-It's important to note that much of the CRUD actions are different actions that occur on the same resource. Let's take the example of a blog post with the ID 4. If we wanted to view the post, we would make a `GET` request to `/posts/4`. But what about when I want to update that post? Am I hitting a different resource? Nope! Just doing a different action to that same resource. So instead of a `GET` against `post/4` we do a `PUT`. That's why separating what you're talking to (the resource/noun) from the action you're doing (the HTTP verb) is important! That's key to REST.
+It's important to note that much of the CRUD actions are different actions that occur on the same resource. Let's take the example of a blog post with the ID 4. If we wanted to view the post, we would make a `GET` request to `/posts/4`. But what about when I want to update that post? Am I hitting a different resource? Nope! Just doing a different action to that same resource. So instead of a `GET` against `/posts/4` we do a `PUT`. That's why separating what you're talking to (the resource/noun) from the action you're doing (the HTTP verb) is important! That's key to REST.
 
 ## Browser Caveat
 
@@ -58,11 +58,11 @@ end
 
 post '/posts' do
   @post = Post.create(:title => params[:title], :content => params[:content])
-  redirect to '/posts/#{@post.id}'
+  redirect to "/posts/#{@post.id}"
 end
 ```
 
-Above, we have two controller actions. The first one is a `GET` request to load the form to create a new blog post. The second action is the `create action`. This action responds to a `POST` request and creates a new post based on the params from the form and saves it to the database. Once the item is created, this action redirects to the `show` page. 
+Above, we have two controller actions. The first one is a `GET` request to load the form to create a new blog post. The second action is the `create action`. This action responds to a `POST` request and creates a new post based on the params from the form and saves it to the database. Once the item is created, this action redirects to the `show` page.
 
 
 ### Show Action
@@ -102,7 +102,7 @@ We do have to do a little extra work to get the edit form to submit via a `PATCH
 Your form must include a hidden input field that will submit our form via `patch`.
 
 ```html
-<form action="/posts/:id" method="post">
+<form action="/posts/<%= @post.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <input type="text" name="title">
   <input type="text" name="content">
@@ -116,7 +116,7 @@ The second line above `<input type="hidden" name="_method" value="patch">` is wh
 
 The hidden input field shown above uses `Rack:MethodOverride`, which is part of [Sinatra middleware](https://github.com/rack/rack/blob/master/lib/rack/method_override.rb). 
 
-In order to use this middleware, and therefore use `PATCH`, `PUT`, and `DELETE` requests, you *must* tell your app to use the middleware. 
+In order to use this middleware, and therefore use `PATCH`, `PUT`, and `DELETE` requests, you *must* tell your app to use the middleware.
 
 In the `config.ru` file, you'll need the following line to be placed *above* the `run ApplicationController` line:
 
@@ -141,14 +141,10 @@ On the blog post show page, we have a form to delete it. The form is submitted v
 Again, this delete form needs the hidden input field:
 
 ```html
-<form action="/posts/:id/delete" method="post">
+<form action="/posts/<%= @post.id %>/delete" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="text" name="title">
-  <input type="text" name="content">
   <input type="submit" value="submit">
 </form>
 ```
-
-<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme' title='RESTful Routes'>RESTful Routes</a> on Learn.co and start learning to code for free.</p>
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-restful-routes-readme'>Sinatra RESTful Routes</a> on Learn.co and start learning to code for free.</p>
