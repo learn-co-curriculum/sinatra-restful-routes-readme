@@ -33,7 +33,7 @@ Let's take a blog website as an example. You'd want to have a controller action 
 | POST    | '/posts'           | create action | creates one blog post                                  |
 | GET     | '/posts/:id'       | show action   | displays one blog post based on ID in the url          |
 | GET     | '/posts/:id/edit'  | edit action   | displays edit form based on ID in the url              |
-| PATCH   | '/posts/:id'       | edit action   | **edits** an existing blog post based on ID in the url |
+| PATCH   | '/posts/:id'       | edit action   | _edits_ an existing blog post based on ID in the url   |
 | GET     | '/posts/:id/update'| update action | displays update form blog post based on ID in the url  |
 | PUT     | '/posts/:id'       | update action | _replaces_ an existing blog post based on ID in the url|
 | DELETE  | '/posts/:id/delete'| delete action | deletes one blog post based on ID in the url           |
