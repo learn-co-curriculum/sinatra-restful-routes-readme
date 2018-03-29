@@ -33,10 +33,9 @@ Let's take a blog website as an example. You'd want to have a controller action 
 | POST    | '/posts'           | create action | creates one blog post                                  |
 | GET     | '/posts/:id'       | show action   | displays one blog post based on ID in the url          |
 | GET     | '/posts/:id/edit'  | edit action   | displays edit form based on ID in the url              |
-| PATCH   | '/posts/:id'       | edit action   | _edits_ an existing blog post based on ID in the url   |
-| GET     | '/posts/:id/update'| update action | displays update form blog post based on ID in the url  |
+| PATCH   | '/posts/:id'       | update action | _modifies_ an existing blog post based on ID in the url|
 | PUT     | '/posts/:id'       | update action | _replaces_ an existing blog post based on ID in the url|
-| DELETE  | '/posts/:id/delete'| delete action | deletes one blog post based on ID in the url           |
+| DELETE  | '/posts/:id'       | delete action | deletes one blog post based on ID in the url           |
 
 ## The Routes
 
@@ -130,6 +129,14 @@ use Rack::MethodOverride
 In an application with multiple controllers, `use Rack::MethodOverride` must be placed **above all controllers** in which you want access to the middleware's functionality.
 
 This middleware will then run for every request sent by our application. It will interpret any requests with `name="_method"` by translating the request to whatever is set by the `value` attribute. In this example, the `post` gets translated to a `patch` request. The middleware handles `put` and `delete` in the same way.
+
+Many developers are confused about the difference between `PATCH` and `PUT`. It actually recalls a famous philosophical problem called [The Ship of Theseus Paradox](https://en.wikipedia.org/wiki/Ship_of_Theseus). Imagine a car with a license plate (`id`). Now let's say we wanted to change the car's color from red to green. We could:
+
+1. Pull our our disintegrating raygun and zap the car **ZZZZAP** and build a _new_ car that was identical to the first car in all aspects except that it was green instead of red. We could slap the old license plate (`id`) on it and, from a certain point of view, we have "updated the Car with given license plate with `id` equal to `params[:id]`
+2. Find a given car and repaint it
+
+Option 1 is like `PUT` a replace of all fields. Option 2 is like a `PATCH`. The subtler question of what differentiates the two hinges on a fancy Latin-esque word: _idempotent_. If you're really curious about the subtleties here, check out this [Stack Overflow](https://stackoverflow.com/questions/28459418/rest-api-put-vs-patch-with-real-life-examples) post. It may suffice to say that `PATCH` is relatively new and in the early days of REST we only used `PUT` (We were zapping all day long
+!).
 
 ### Delete Action
 
