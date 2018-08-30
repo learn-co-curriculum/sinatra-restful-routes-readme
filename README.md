@@ -20,7 +20,7 @@ It's important to note that much of the CRUD actions are different actions that 
 
 ## Browser Caveat
 
-Browsers behave a little strange as it relates to `PUT`, `PATCH` and `DELETE` requests, in that they don't know how to send those requests. Forms that delete and edit need to be submitted via `POST` requests.
+Browsers behave a little strangely as it relates to `PUT`, `PATCH` and `DELETE` requests, in that they don't know how to send those requests. Forms that delete and edit need to be submitted via `POST` requests.
 
 ## Routes Overview
 
