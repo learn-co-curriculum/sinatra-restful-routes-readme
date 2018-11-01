@@ -43,7 +43,7 @@ Let's take a magazine website as an example. You'd want to have a controller act
 
 ```ruby
 get '/articles' do
-  @article = Article.all
+  @articles = Article.all
   erb :index
 end
 ```
