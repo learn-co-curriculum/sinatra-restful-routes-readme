@@ -130,7 +130,7 @@ In an application with multiple controllers, `use Rack::MethodOverride` must be 
 
 This middleware will then run for every request sent by our application. It will interpret any requests with `name="_method"` by translating the request to whatever is set by the `value` attribute. In this example, the `post` gets translated to a `patch` request. The middleware handles `put` and `delete` in the same way.
 
-Many developers are confused about the difference between `PATCH` and `PUT`. It actually recalls a famous philosophical problem called [The Ship of Theseus Paradox](https://en.wikipedia.org/wiki/Ship_of_Theseus). Imagine a car with a license plate (`id`). Now let's say we wanted to change the car's color from red to green. We could:
+Many developers are confused about the difference between `PATCH` and `PUT`.  Imagine a car with a license plate (`id`). Now let's say we wanted to change the car's color from red to green. We could:
 
 1. Pull our our disintegrating raygun and zap the car **ZZZZAP** and build a _new_ car that was identical to the first car in all aspects except that it was green instead of red. We could slap the old license plate (`id`) on it and, from a certain point of view, we have "updated the Car with given license plate with `id` equal to `params[:id]`
 2. Find a given car and repaint it
@@ -141,19 +141,19 @@ Option 1 is like `PUT` a replace of all fields. Option 2 is like a `PATCH`. The 
 ### Delete Action
 
 ```ruby
-delete '/articles/:id/delete' do #delete action
+delete '/articles/:id' do #delete action
   @article = Article.find_by_id(params[:id])
   @article.delete
   redirect to '/articles'
 end
 ```
 
-On the article show page, we have a form to delete it. The form is submitted via a `DELETE` request to the route `/articles/:id/delete`. This action finds the article in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/articles`.
+On the article show page, we have a form to delete it. The form is submitted via a `DELETE` request to the route `/articles/:id`. This action finds the article in the database based on the ID in the url parameters, and deletes it. It then redirects to the index page `/articles`.
 
 Again, this delete form needs the hidden input field:
 
 ```html
-<form action="/articles/<%= @article.id %>/delete" method="post">
+<form action="/articles/<%= @article.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="delete">
 </form>
