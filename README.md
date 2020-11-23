@@ -173,7 +173,7 @@ get '/articles/:id/edit' do  #load edit form
     erb :edit
   end
 
-patch '/articles/:id' do #edit action
+patch '/articles/:id' do #update the article
   @article = Article.find_by_id(params[:id])
   @article.title = params[:title]
   @article.content = params[:content]
@@ -232,7 +232,7 @@ middleware to translate the form tag's `method` attribute and `value="patch"`
 tells it to change the `method`s `value` to `patch`. The middleware handles
 `put` and `delete` in the same way.
 
-#### `PATCH` VS. `PUT`
+#### `PATCH` vs. `PUT`
 
 Many developers are confused about the difference between `PATCH` and `PUT`.
 Imagine a car with a license plate (`id`). Now let's say we wanted to change the
