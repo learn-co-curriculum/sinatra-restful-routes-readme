@@ -100,13 +100,13 @@ to edit an article (edit route).
     <td>PATCH</td>
     <td>'/articles/:id'</td>
     <td>update action</td>
-    <td>_modifies_ an existing article based on ID in the url</td>
+    <td><em>modifies</em> an existing article based on ID in the url</td>
   </tr>
   <tr>
     <td>PUT</td>
     <td>'/articles/:id'</td>
     <td>update action</td>
-    <td>_replaces_ an existing article based on ID in the url</td>
+    <td><em>replaces</em> an existing article based on ID in the url</td>
   </tr>
   <tr>
     <td>DELETE</td>
