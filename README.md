@@ -21,7 +21,7 @@ in structuring routes. Following RESTful patterns makes it easier for developers
 to create and maintain routes and easier for users to understand what's
 happening as they use a web application.
 
-A RESTful route is a route that provides mapping between HTTP verbs (get, post,
+A RESTful route is a route that provides mapping from HTTP verbs (get, post,
 put, delete, patch) to controller CRUD actions (create, read, update, delete).
 Instead of relying solely on the URL to indicate what site to visit, a RESTful
 route depends on the HTTP verb __and__ the URL.
@@ -70,7 +70,7 @@ to edit an article (edit route).
     <td>GET</td>
     <td>'/articles'</td>
     <td>index action</td>
-    <td>index page to display all</td>
+    <td>index page to display all articles</td>
   </tr>
   <tr>
     <td>GET</td>
@@ -146,9 +146,9 @@ end
 
 Above, we have two controller actions. The first one is a `GET` request to load
 the form to create a new article. The second action is the `create action`. This
-action responds to a `POST` request; it creates a new article based on the
-params from the form and saves it to the database. Once the item is created,
-this action redirects to the `show` page.
+action responds to a `POST` request. When the `new` form is submitted, it
+creates a new article based on the params from the form and saves it to the
+database. Once the item is created, this action redirects to the `show` page.
 
 ### Show Action
 
